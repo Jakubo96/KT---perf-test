@@ -11,6 +11,7 @@ const routes: Routes = [
   {path: 'second', component: Example2Component},
   {path: 'third', component: Example3Component},
   {path: 'fourth', component: Example4Component},
+  {path: '**', redirectTo: 'first', pathMatch: 'full'}
 ];
 
 @NgModule({
