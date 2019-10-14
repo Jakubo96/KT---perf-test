@@ -1,0 +1,14 @@
+<div class="d-flex mt-5 justify-content-center">
+  <button (click)="incrementValue()" class="btn btn-primary btn-lg">Increment value</button>
+</div>
+
+<div class="d-flex mt-3 justify-content-center">
+  <h5>Result: {{ count.value }}</h5>
+</div>
+
+<hr/>
+
+<div class="d-flex mt-5 justify-content-center">
+  <app-example3-nested #nested [count]="count"></app-example3-nested>
+</div>
+
