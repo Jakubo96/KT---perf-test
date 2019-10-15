@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {timer} from 'rxjs';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subscription, timer} from 'rxjs';
 
 @Component({
   selector: 'app-example4',
@@ -7,17 +7,22 @@ import {timer} from 'rxjs';
   styleUrls: ['./example4.component.css'],
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Example4Component implements OnInit {
+export class Example4Component implements OnInit, OnDestroy {
   public timer$ = timer(0, 1000);
   public unpackedValue: number;
+
+  private subscription = new Subscription();
 
   // constructor(private cdr: ChangeDetectorRef) {
   // }
 
-  ngOnInit() {
-    this.timer$.subscribe(value => {
+  ngOnInit() {this.subscription = this.timer$.subscribe(value => {
       this.unpackedValue = value;
       // this.cdr.markForCheck();
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }
