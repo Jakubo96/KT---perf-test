@@ -16,7 +16,8 @@ export class Example4Component implements OnInit, OnDestroy {
   // constructor(private cdr: ChangeDetectorRef) {
   // }
 
-  ngOnInit() {this.subscription = this.timer$.subscribe(value => {
+  ngOnInit() {
+    this.subscription = this.timer$.subscribe(value => {
       this.unpackedValue = value;
       // this.cdr.markForCheck();
     });
