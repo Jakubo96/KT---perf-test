@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription, timer} from 'rxjs';
+import {Subject, timer} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-example4',
@@ -11,19 +12,24 @@ export class Example4Component implements OnInit, OnDestroy {
   public timer$ = timer(0, 1000);
   public unpackedValue: number;
 
-  private subscription = new Subscription();
+  private unsubscribe$ = new Subject();
 
   // constructor(private cdr: ChangeDetectorRef) {
   // }
 
   ngOnInit() {
-    this.subscription = this.timer$.subscribe(value => {
+    this.timer$
+      .pipe(
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe(value => {
       this.unpackedValue = value;
       // this.cdr.markForCheck();
     });
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }
